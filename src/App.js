@@ -5,7 +5,6 @@ import Loading from './components/UI/Loading';
 import MainNotification from './components/UI/MainNotification';
 import Modal from './components/UI/Modal';
 import Upload from './components/Upload/Upload';
-import ResetPassword from './components/User/ResetPassword';
 import Verification from './components/User/Verification';
 import AuthContext from './context/AuthContext';
 
