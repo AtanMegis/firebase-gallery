@@ -27,6 +27,7 @@ const Profile = () => {
 			setPhotoURL(URL.createObjectURL(file));
 		}
 	};
+
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		setLoading(true);
@@ -41,12 +42,11 @@ const Profile = () => {
 					file,
 					`profile/${currentUser?.uid}/${imageName}`
 				);
-				// TODO DELETE PROFILE IMAGE
 
 				if (currentUser?.photoURL) {
 					const prevImage = currentUser?.photoURL
-						.split(`${currentUser?.uid}%2F`)[1]
-						.split('?')[0];
+						?.split(`${currentUser?.uid}%2F`)[1]
+						?.split('?')[0];
 					if (prevImage) {
 						try {
 							await deleteFile(
@@ -61,25 +61,28 @@ const Profile = () => {
 				userObj = { ...userObj, photoURL: url };
 				imagesObj = { ...imagesObj, uPhoto: url };
 			}
+
 			await updateProfile(currentUser, userObj);
 			await updateUserRecords('gallery', currentUser?.uid, imagesObj);
 
-			// TODO UPDATE GALLERY IMAGES RELATED TO USER
 			setAlert({
 				isAlert: true,
 				severity: 'success',
 				message: 'Your profile has been updated',
+				timeout: 3000,
 				location: 'modal',
 			});
 		} catch (error) {
 			setAlert({
 				isAlert: true,
-				severity: 'success',
+				severity: 'error',
 				message: error.message,
+				timeout: 5000,
 				location: 'modal',
 			});
 			console.log(error);
 		}
+
 		setLoading(false);
 	};
 

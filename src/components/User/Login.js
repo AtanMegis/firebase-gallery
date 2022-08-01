@@ -10,11 +10,12 @@ import { useAuth } from '../../context/AuthContext';
 import EmailField from '../UI/EmailField';
 import PasswordField from '../UI/PasswordField';
 import SubmitButton from '../UI/SubmitButton';
+import ResetPassword from './ResetPassword';
 
 const Login = () => {
 	const emailRef = useRef();
 	const passwordRef = useRef();
-	const confirmPassowrdRef = useRef();
+	const confirmPasswordRef = useRef();
 	const [isRegister, setIsRegister] = useState(false);
 
 	const {
@@ -41,7 +42,7 @@ const Login = () => {
 		const email = emailRef.current.value;
 		const password = passwordRef.current.value;
 		if (isRegister) {
-			const confirmPassword = confirmPassowrdRef.current.value;
+			const confirmPassword = confirmPasswordRef.current.value;
 			try {
 				if (password !== confirmPassword) {
 					throw new Error(`Passwords don't Match`);
@@ -100,13 +101,16 @@ const Login = () => {
 						Please enter your email and password
 					</DialogContentText>
 					<EmailField {...{ emailRef }} />
-					<PasswordField {...{ passwordRef }} />
+					<PasswordField
+						{...{ passwordRef, autoFocus: false }}
+					/>
 					{isRegister && (
 						<PasswordField
 							{...{
-								passwordRef: confirmPassowrdRef,
-								id: 'current-password',
-								label: 'new-password',
+								passwordRef: confirmPasswordRef,
+								id: 'cu',
+								label: 'Confirm Password',
+								autoFocus: false,
 							}}
 						/>
 					)}
@@ -114,7 +118,18 @@ const Login = () => {
 				<DialogActions
 					sx={{ justifyContent: 'space-between', px: '19px' }}
 				>
-					<Button size="small">Forgot Password ?</Button>
+					<Button
+						size="small"
+						onClick={() =>
+							setModal({
+								...modal,
+								title: 'Reset Password',
+								content: <ResetPassword />,
+							})
+						}
+					>
+						Forgot Password?
+					</Button>
 					<SubmitButton />
 				</DialogActions>
 			</form>

@@ -14,7 +14,7 @@ const ProgressItem = ({ file }) => {
 
 	useEffect(() => {
 		const uploadImage = async () => {
-			const imageName = uuidv4() + '.' + file.name.split('.').pop();
+			const imageName = uuidv4() + '.' + file.name?.split('.').pop();
 			try {
 				const url = await uploadFileWithProgress(
 					file,
