@@ -57,7 +57,7 @@ export default function ImagesList() {
 						<Options
 							imageId={item.id}
 							uid={item?.data?.uid}
-							image={item?.data?.imageURL}
+							imageURL={item?.data?.imageURL}
 						/>
 
 						<img
